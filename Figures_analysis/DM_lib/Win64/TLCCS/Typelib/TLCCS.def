@@ -1,0 +1,30 @@
+LIBRARY tlccs
+DESCRIPTION "Thorlabs CCS VISA Instrument Driver"
+
+EXPORTS
+tlccs_init
+tlccs_setIntegrationTime
+tlccs_getIntegrationTime
+tlccs_startScan
+tlccs_startScanCont
+tlccs_startScanExtTrg
+tlccs_startScanContExtTrg
+tlccs_getDeviceStatus
+tlccs_getScanData
+tlccs_getRawScanData
+tlccs_setWavelengthData
+tlccs_getWavelengthData
+tlccs_getUserCalibrationPoints
+tlccs_setAmplitudeData
+tlccs_getAmplitudeData
+tlccs_identificationQuery
+tlccs_revisionQuery
+tlccs_reset
+tlccs_selfTest
+tlccs_errorQuery
+tlccs_errorMessage
+tlccs_setUserText
+tlccs_getUserText
+tlccs_setAttribute
+tlccs_getAttribute
+tlccs_close

@@ -1,0 +1,119 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="stylesheet" href="htmlhelp.css" type="text/css">
+    <title>tlccs_init</title>
+  </head>
+  <body>
+    <h1>tlccs_init</h1>
+    <p class="syntax">
+      ViStatus tlccs_init (ViRsrc resourceName, ViBoolean IDQuery,
+                     ViBoolean resetDevice, ViPSession instrumentHandle);
+    </p>
+    <h2 class="purpose">Purpose</h2>
+    <p class="body">
+    This function initializes the instrument driver session and performs the following initialization actions:
+    <br/>
+    (1) Opens a session to the Default Resource Manager resource and a session to the specified device using the Resource Name&nbsp;&nbsp;specified.
+    <br/>
+    (2) Performs an identification query on the instrument.
+    <br/>
+    (3) Resets the instrument to a known state.
+    <br/>
+    (4) Sends initialization commands to the instrument.
+    <br/>
+    (5) Returns an instrument handle which is used to distinguish between different sessions of this instrument driver.
+    <br/>
+    Notes:
+    <br/>
+    (1) Each time this function is invoked a unique session is opened.&nbsp;&nbsp;
+    </p>
+    <h2>Parameters</h2>
+    <table class="borderless" summary="Parameter help">
+      <tr>
+        <td valign="top"><em class="label">Input</em></td>
+      </tr>
+      <tr>
+        <td class="tablehead">Name</td>
+        <td class="tablehead">Type</td>
+        <td class="tablehead">Description</td>
+      </tr>
+      <tr>
+        <td class="paramName">resourceName</td>
+        <td class="paramDataType">ViRsrc</td>
+        <td>
+    This parameter specifies the device that is to be initialized (Resource Name). The syntax for this parameter is shown below.
+    <br/>
+    &quot;USB0::0x1313::0x8080::DEVICE-SERIAL-NUMBER::RAW&quot;
+    <br/>
+    For remote VISA sessions use. &quot;VISA://HOSTNAME[:PORT]/USB0::0x1313::0x8080::DEVICE-SERIAL-NUMBER::RAW&quot;.
+    <br/>
+    Where HOSTNAME is the name of the machine running the VISA server and PORT is the TCP port of the VISA server.
+    <br/>
+    Notes:
+    <br/>
+    (1) You may use VISA &lt;Find Resources&gt; to get the Resource Name for your device. Use &quot;USB?*INSTR{VI_ATTR_MANF_ID==0x1313 &amp;&amp; VI_ATTR_MODEL_CODE==0x8080}&quot; as a search string for &lt;Find Resources&gt;.
+        </td>
+      </tr>
+      <tr>
+        <td class="paramName">IDQuery</td>
+        <td class="paramDataType">ViBoolean</td>
+        <td>
+    This parameter specifies whether an identification query is performed during the initialization process.
+    <br/>
+    VI_OFF (0): Skip query.
+    <br/>
+    VI_ON&nbsp;&nbsp;(1): Do query (default).
+        </td>
+      </tr>
+      <tr>
+        <td class="paramName">resetDevice</td>
+        <td class="paramDataType">ViBoolean</td>
+        <td>
+    This parameter specifies whether the instrument is reset during the initialization process.
+    <br/>
+    VI_OFF (0) - no reset
+    <br/>
+    VI_ON&nbsp;&nbsp;(1) - instrument is reset (default)
+        </td>
+      </tr>
+      <tr>
+        <td valign="top"><em class="label">Output</em></td>
+      </tr>
+      <tr>
+        <td class="tablehead">Name</td>
+        <td class="tablehead">Type</td>
+        <td class="tablehead">Description</td>
+      </tr>
+      <tr>
+        <td class="paramName">instrumentHandle</td>
+        <td class="paramDataType">ViSession (passed by reference)</td>
+        <td>
+    This parameter returns an instrument handle that is used in all subsequent calls to distinguish between different sessions of this instrument driver.
+        </td>
+      </tr>
+    </table>
+    <h2>Return Value</h2>
+    <table class="borderless" summary="Return value help">
+      <tr>
+        <td class="tablehead">Name</td>
+        <td class="tablehead">Type</td>
+        <td class="tablehead">Description</td>
+      </tr>
+      <tr>
+        <td class="paramName">status</td>
+        <td class="paramDataType">ViStatus</td>
+        <td>
+    This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+        </td>
+      </tr>
+    </table>
+    <h2>References</h2>
+    <p class="body">
+      <a href="Thorlabs%20CCS%20VISA%20Instrument%20Driver.html">Thorlabs CCS VISA Instrument Driver</a><br/>
+      <a href="Alphabetical%20Function%20Index.html">Alphabetical Function Index</a><br/>
+      <a href="Hierarchical%20Function%20Index.html">Hierarchical Function Index</a><br/>
+    </p>
+  </body>
+</html>

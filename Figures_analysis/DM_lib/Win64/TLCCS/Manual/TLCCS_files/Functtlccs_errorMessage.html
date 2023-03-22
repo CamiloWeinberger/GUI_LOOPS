@@ -1,0 +1,137 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="stylesheet" href="htmlhelp.css" type="text/css">
+    <title>tlccs_errorMessage</title>
+  </head>
+  <body>
+    <h1>tlccs_errorMessage</h1>
+    <p class="syntax">
+      ViStatus tlccs_errorMessage (ViSession instrumentHandle, ViStatus statusCode,
+                             ViChar _VI_FAR description[]);
+    </p>
+    <h2 class="purpose">Purpose</h2>
+    <p class="body">
+    This function takes the error code returned by the instrument driver functions interprets it and returns it as an user readable string.
+    <br/>
+    Status/error codes and description:
+    <br/>
+    --- Instrument Driver Errors and Warnings ---
+    <br/>
+    Status&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Description
+    <br/>
+    -------------------------------------------------
+    <br/>
+    0&nbsp;&nbsp;No error (the call was successful).
+    <br/>
+    0x3FFF0085&nbsp;&nbsp;Unknown Status Code&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;- VI_WARN_UNKNOWN_STATUS
+    <br/>
+    0x3FFC0901&nbsp;&nbsp;WARNING: Value overflow - VI_INSTR_WARN_OVERFLOW
+    <br/>
+    0x3FFC0902&nbsp;&nbsp;WARNING: Value underrun - VI_INSTR_WARN_UNDERRUN
+    <br/>
+    0x3FFC0903&nbsp;&nbsp;WARNING: Value is NaN&nbsp;&nbsp;&nbsp;- VI_INSTR_WARN_NAN
+    <br/>
+    0xBFFC0001&nbsp;&nbsp;Parameter 1 out of range.
+    <br/>
+    0xBFFC0002&nbsp;&nbsp;Parameter 2 out of range.
+    <br/>
+    0xBFFC0003&nbsp;&nbsp;Parameter 3 out of range.
+    <br/>
+    0xBFFC0004&nbsp;&nbsp;Parameter 4 out of range.
+    <br/>
+    0xBFFC0005&nbsp;&nbsp;Parameter 5 out of range.
+    <br/>
+    0xBFFC0006&nbsp;&nbsp;Parameter 6 out of range.
+    <br/>
+    0xBFFC0007&nbsp;&nbsp;Parameter 7 out of range.
+    <br/>
+    0xBFFC0008&nbsp;&nbsp;Parameter 8 out of range.
+    <br/>
+    0xBFFC0012&nbsp;&nbsp;Error Interpreting instrument response.
+    <br/>
+    --- Instrument Errors ---
+    <br/>
+    Range: 0xBFFC0700 .. 0xBFFC0CFF.
+    <br/>
+    Calculation: Device error code + 0xBFFC0900.
+    <br/>
+    Please see your device documentation for details.
+    <br/>
+    --- VISA Errors ---
+    <br/>
+    Please see your VISA documentation for details.
+    </p>
+    <h2>Parameters</h2>
+    <table class="borderless" summary="Parameter help">
+      <tr>
+        <td valign="top"><em class="label">Input</em></td>
+      </tr>
+      <tr>
+        <td class="tablehead">Name</td>
+        <td class="tablehead">Type</td>
+        <td class="tablehead">Description</td>
+      </tr>
+      <tr>
+        <td class="paramName">instrumentHandle</td>
+        <td class="paramDataType">ViSession</td>
+        <td>
+    This parameter accepts the instrument handle returned by &lt;Initialize&gt; to select the desired instrument driver session. You may pass VI_NULL.
+    <br/>
+    Note: If VI_NULL is passed to this parameter it is not possible to get device specific messages.
+        </td>
+      </tr>
+      <tr>
+        <td class="paramName">statusCode</td>
+        <td class="paramDataType">ViStatus</td>
+        <td>
+    This parameter accepts the error codes returned from the instrument driver functions.
+    <br/>
+    Default Value: 0 - VI_SUCCESS
+        </td>
+      </tr>
+      <tr>
+        <td valign="top"><em class="label">Output</em></td>
+      </tr>
+      <tr>
+        <td class="tablehead">Name</td>
+        <td class="tablehead">Type</td>
+        <td class="tablehead">Description</td>
+      </tr>
+      <tr>
+        <td class="paramName">description</td>
+        <td class="paramDataType">ViChar[]</td>
+        <td>
+    This parameter returns the interpreted code as an user readable message string.
+    <br/>
+    Notes:
+    <br/>
+    (1) The array must contain at least 512 elements ViChar[512].
+        </td>
+      </tr>
+    </table>
+    <h2>Return Value</h2>
+    <table class="borderless" summary="Return value help">
+      <tr>
+        <td class="tablehead">Name</td>
+        <td class="tablehead">Type</td>
+        <td class="tablehead">Description</td>
+      </tr>
+      <tr>
+        <td class="paramName">status</td>
+        <td class="paramDataType">ViStatus</td>
+        <td>
+    This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+        </td>
+      </tr>
+    </table>
+    <h2>References</h2>
+    <p class="body">
+      <a href="ClassUtility%20Functions.html">Utility Functions</a><br/>
+      <a href="Thorlabs%20CCS%20VISA%20Instrument%20Driver.html">Thorlabs CCS VISA Instrument Driver</a><br/>
+      <a href="Alphabetical%20Function%20Index.html">Alphabetical Function Index</a><br/>
+      <a href="Hierarchical%20Function%20Index.html">Hierarchical Function Index</a><br/>
+    </p>
+  </body>
+</html>

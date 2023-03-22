@@ -1,0 +1,12 @@
+function [hfile,libname,hdl,res,state,TLDFM_Target,hysteresis]=DM_checking(DM_exist)
+
+% Prueba DM 
+if DM_exist==0
+    [hfile,libname]=DM_library;
+    [hdl,res,state,TLDFM_Target,hysteresis]=DM_connect;
+else
+    display('DM is already conected')
+end
+return
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

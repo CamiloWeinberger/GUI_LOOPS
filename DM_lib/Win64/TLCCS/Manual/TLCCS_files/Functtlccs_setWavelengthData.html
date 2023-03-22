@@ -1,0 +1,106 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="stylesheet" href="htmlhelp.css" type="text/css">
+    <title>tlccs_setWavelengthData</title>
+  </head>
+  <body>
+    <h1>tlccs_setWavelengthData</h1>
+    <p class="syntax">
+      ViStatus tlccs_setWavelengthData (ViSession instrumentHandle,
+                                  ViInt32 _VI_FAR pixelDataArray[],
+                                  ViReal64 _VI_FAR wavelengthDataArray[],
+                                  ViInt32 bufferLength);
+    </p>
+    <h2 class="purpose">Purpose</h2>
+    <p class="body">
+    This function stores data for user-defined pixel-wavelength correlation to the instrument's nonvolatile memory.
+    <br/>
+    The given data pair arrays are used to interpolate the pixel-wavelength correlation array returned by the CCSseries_getWavelengthData function.
+    <br/>
+    Note: In case the interpolated pixel-wavelength correlation contains negative values, or the values are not strictly increasing the function returns with error VI_ERROR_INV_USER_DATA.
+    </p>
+    <h2>Parameters</h2>
+    <table class="borderless" summary="Parameter help">
+      <tr>
+        <td valign="top"><em class="label">Input</em></td>
+      </tr>
+      <tr>
+        <td class="tablehead">Name</td>
+        <td class="tablehead">Type</td>
+        <td class="tablehead">Description</td>
+      </tr>
+      <tr>
+        <td class="paramName">instrumentHandle</td>
+        <td class="paramDataType">ViSession</td>
+        <td>
+    This parameter accepts the instrument handle returned by &lt;Initialize&gt; to select the desired instrument driver session.
+        </td>
+      </tr>
+      <tr>
+        <td class="paramName">bufferLength</td>
+        <td class="paramDataType">ViInt32</td>
+        <td>
+    This parameter accepts the number of elements in the Pixel Data Array and the Wavelength Data Array.
+    <br/>
+    Note:
+    <br/>
+    This value has to be at least CCS_SERIES_MIN_NUM_USR_ADJ (4) and at most CCS_SERIES_MAX_NUM_USR_ADJ (10).
+        </td>
+      </tr>
+      <tr>
+        <td valign="top"><em class="label">Output</em></td>
+      </tr>
+      <tr>
+        <td class="tablehead">Name</td>
+        <td class="tablehead">Type</td>
+        <td class="tablehead">Description</td>
+      </tr>
+      <tr>
+        <td class="paramName">pixelDataArray</td>
+        <td class="paramDataType">ViInt32[]</td>
+        <td>
+    This parameter accepts the pixel values of the pixel/wavelength data pairs. The valid range for pixel values is from 0 up to CCS_SERIES_NUM_PIXEL - 1 (3647).
+    <br/>
+    Note:
+    <br/>
+    The array must contain at least CCS_SERIES_MIN_NUM_USR_ADJ (4) elements and at most CCS_SERIES_MAX_NUM_USR_ADJ (10) elements.
+        </td>
+      </tr>
+      <tr>
+        <td class="paramName">wavelengthDataArray</td>
+        <td class="paramDataType">ViReal64[]</td>
+        <td>
+    This parameter accepts the wavelength values of the pixel/wavelength data pairs in nm. The wavelength value has to be positive.
+    <br/>
+    Note:
+    <br/>
+    The array must contain at least CCS_SERIES_MIN_NUM_USR_ADJ (4) elements and at most CCS_SERIES_MAX_NUM_USR_ADJ (10) elements.
+        </td>
+      </tr>
+    </table>
+    <h2>Return Value</h2>
+    <table class="borderless" summary="Return value help">
+      <tr>
+        <td class="tablehead">Name</td>
+        <td class="tablehead">Type</td>
+        <td class="tablehead">Description</td>
+      </tr>
+      <tr>
+        <td class="paramName">status</td>
+        <td class="paramDataType">ViStatus</td>
+        <td>
+    This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+        </td>
+      </tr>
+    </table>
+    <h2>References</h2>
+    <p class="body">
+      <a href="ClassData%20Functions.html">Data Functions</a><br/>
+      <a href="Thorlabs%20CCS%20VISA%20Instrument%20Driver.html">Thorlabs CCS VISA Instrument Driver</a><br/>
+      <a href="Alphabetical%20Function%20Index.html">Alphabetical Function Index</a><br/>
+      <a href="Hierarchical%20Function%20Index.html">Hierarchical Function Index</a><br/>
+    </p>
+  </body>
+</html>

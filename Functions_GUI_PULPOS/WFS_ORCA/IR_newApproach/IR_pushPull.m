@@ -1,0 +1,123 @@
+% =============================================
+%   SCRIPT simulating new IR
+% ==============================================
+
+clear all
+close all
+clc
+wfsModel = 'diff';
+
+%% ---------- ATMOSPHERE ----------
+r0 = 0.2;
+atm = atmosphere(photometry.V,r0,30,...
+    'altitude',[0],...
+    'fractionnalR0',[1],...
+    'windSpeed',[10],...
+    'windDirection',[0]);
+
+%% Definition of the telescope
+nPx = 90;
+tel = telescope(8,...
+    'fieldOfViewInArcMin',2,...
+    'resolution',nPx,...
+    'samplingTime',1/200);
+
+%% KL Base
+nModes = 250;
+% --- KL Base ---
+modeout = KL_basis(tel,atm,nModes);
+modes = modeout.KL_pure;
+
+%% Definition of a calibration source
+ngs = source('wavelength',photometry.V);
+
+%% Definition of the wavefront sensor
+nLenslet = nPx;
+d = tel.D/nLenslet;
+modu = 3;
+wfs = pyramid(nLenslet,nPx,'c',2,'modulation',modu);
+% ----- NOISE --------------
+ngs.magnitude = 0;
+intensityFrame = 1; % Choose between Full Frame or Slopes Map
+ngs = ngs.*tel*wfs;
+wfs.INIT
++wfs;
+
+%% RESIDUAL PHASE ------ 
+nTurbu = 2000;
+r0 = 0.5;
+atm = atmosphere(photometry.V,r0,30,...
+    'altitude',[0],...
+    'fractionnalR0',[1],...
+    'windSpeed',[10],...
+    'windDirection',[0]);
+[map,Cphi] = psdScreen(tel,atm,0,nTurbu);
+
+%% ---------- IR  at DIFFRACTION - PSEUDO-DIRAC -------
+pseudoDirac = zeros(nPx,nPx);
+amp = 0.3;
+pseudoDirac(nPx/2+1,nPx/2+1) = amp;
+
+% PUSH
+ngs = ngs.*tel;
+ngs.phase = pseudoDirac;
+ngs = ngs*wfs;
+sp = wfs.intensityFrame;
+
+% PULL
+ngs = ngs.*tel;
+ngs.phase = -pseudoDirac;
+ngs = ngs*wfs;
+sm = wfs.intensityFrame;
+
+IR = sp-sm/(2*amp);
+IR = reshape(IR,nPx*4,nPx*4);
+figure
+imagesc(IR);
+
+% Modal Convolution
+S = zeros(nModes,1);
+for i=1:nModes
+    m = reshape(modes(:,i),nPx,nPx);
+    m = padarray(m,[3*nPx/2,3*nPx/2]);
+    mI_modes = fftshift(ifft2(fft2(IR).*fft2(m)));
+    S(i) = sqrt(sum(mI_modes(:).^2));
+end
+figure;
+plot(S)
+
+%% ---------- CALIB around RESIDUAL PHASE  -------
+IR_res = zeros(4*nPx,4*nPx,nTurbu);
+for r=1:nTurbu
+    disp(r)
+    resPhase = {tel.pupil;map(:,:,r)};
+    % PUSH
+    ngs = ngs.*resPhase;
+    ngs.phase = pseudoDirac;
+    ngs = ngs*wfs;
+    sp = wfs.intensityFrame;
+
+    % PULL
+    ngs = ngs.*resPhase;
+    ngs.phase = -pseudoDirac;
+    ngs = ngs*wfs;
+    sm = wfs.intensityFrame;
+
+    IR_residu = sp-sm/(2*amp);
+    IR_res(:,:,r) = reshape(IR_residu,nPx*4,nPx*4);
+end
+
+IR_res = mean(IR_res,3);
+figure;
+imagesc(IR_res);
+
+% Modal Convolution
+S_res = zeros(nModes,1);
+for i=1:nModes
+    m = reshape(modes(:,i),nPx,nPx);
+    m = padarray(m,[3*nPx/2,3*nPx/2]);
+    mI_modes = fftshift(ifft2(fft2(IR_res).*fft2(m)));
+    S_res(i) = sqrt(sum(mI_modes(:).^2));
+end
+figure;
+plot(S_res)

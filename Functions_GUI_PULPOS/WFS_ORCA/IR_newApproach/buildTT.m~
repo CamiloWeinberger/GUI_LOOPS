@@ -1,0 +1,18 @@
+function [ tip_tilt ] = buildTT( nPx,c,FoV )
+% building a cube with TIP-TILT for each point in V. 
+    tip_tilt = [];
+    
+    l = linspace(-nPx/2,nPx/2,nPx);
+    [X,Y] = meshgrid(l,l);
+    
+    for i=1:nPx;
+        for j=1:nPx
+            
+            ls = exp(2*pi*1j/nPx*((i-(nPx-1)/2)*X+(j-(nPx-1)/2)*Y));
+            
+            cat(3,tip_tilt,ls);
+        end
+        edn
+
+end
+

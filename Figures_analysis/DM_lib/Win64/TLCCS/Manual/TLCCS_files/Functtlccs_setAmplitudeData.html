@@ -1,0 +1,123 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="stylesheet" href="htmlhelp.css" type="text/css">
+    <title>tlccs_setAmplitudeData</title>
+  </head>
+  <body>
+    <h1>tlccs_setAmplitudeData</h1>
+    <p class="syntax">
+      ViStatus tlccs_setAmplitudeData (ViSession instrumentHandle,
+                                 ViReal64 _VI_FAR amplitudeCorrectionFactors[],
+                                 ViInt32 bufferLength, ViInt32 bufferStart,
+                                 ViInt32 mode);
+    </p>
+    <h2 class="purpose">Purpose</h2>
+    <p class="body">
+    This function stores data for user-defined pixel-amplitude correction factors to the instrument's nonvolatile memory.
+    <br/>
+    The factor array can be used to correct the amplitudes of each pixel returned by the CCSseries_getScanData function.
+    </p>
+    <h2>Parameters</h2>
+    <table class="borderless" summary="Parameter help">
+      <tr>
+        <td valign="top"><em class="label">Input</em></td>
+      </tr>
+      <tr>
+        <td class="tablehead">Name</td>
+        <td class="tablehead">Type</td>
+        <td class="tablehead">Description</td>
+      </tr>
+      <tr>
+        <td class="paramName">instrumentHandle</td>
+        <td class="paramDataType">ViSession</td>
+        <td>
+    This parameter accepts the instrument handle returned by &lt;Initialize&gt; to select the desired instrument driver session.
+        </td>
+      </tr>
+      <tr>
+        <td class="paramName">bufferLength</td>
+        <td class="paramDataType">ViInt32</td>
+        <td>
+    This parameter indicates the length of the amplitude correction factor array. Buffer Length values from given parameter Amplitude_Correction_Factors[] will replace the data stored in the user amplitude correction factor array.
+    <br/>
+    Note:
+    <br/>
+    This value has to be in the range of 1 to CCS_SERIES_NUM_PIXELS (3648). The sum of this parameter and the parameter Buffer Start must not exceed CCS_SERIES_NUM_PIXELS (3648).
+        </td>
+      </tr>
+      <tr>
+        <td class="paramName">bufferStart</td>
+        <td class="paramDataType">ViInt32</td>
+        <td>
+    This parameter is the start index for the amplitude correction factor array. From this point on the data given in the parameter Amplitude_Correction_Factors[] will replace the data stored in the user amplitude correction factor array.
+    <br/>
+    Note:
+    <br/>
+    This value has to be in the range of
+    <br/>
+    0 to CCS_SERIES_NUM_PIXELS&nbsp;&nbsp;- 1 (3647).
+    <br/>
+    The sum of this parameter and the parameter Buffer_Length must not exceed CCS_SERIES_NUM_PIXELS (3648).
+        </td>
+      </tr>
+      <tr>
+        <td class="paramName">mode</td>
+        <td class="paramDataType">ViInt32</td>
+        <td>
+    This parameter indicates the mode of setting the amplitude correction factor array.
+    <br/>
+    If mode is set to ACOR_APPLY_TO_MEAS (1) the data will be applied for the current measurements but will not go into the device's non volatile memory.
+    <br/>
+    If mode is set to ACOR_APPLY_TO_MEAS_NVMEM (2) the data will be&nbsp;&nbsp;applied to the current measurements and will be additionally stored in the device's non volatile memory.
+    <br/>
+    Note:
+    <br/>
+    If mode is set to any other value the function will return error VI_ERROR_INV_PARAMETER (0xBFFF0078).
+        </td>
+      </tr>
+      <tr>
+        <td valign="top"><em class="label">Output</em></td>
+      </tr>
+      <tr>
+        <td class="tablehead">Name</td>
+        <td class="tablehead">Type</td>
+        <td class="tablehead">Description</td>
+      </tr>
+      <tr>
+        <td class="paramName">amplitudeCorrectionFactors</td>
+        <td class="paramDataType">ViReal64[]</td>
+        <td>
+    This parameter accepts the amplitude correction factor array.
+    <br/>
+    Note:
+    <br/>
+    The array must be at least of Buffer Length size
+        </td>
+      </tr>
+    </table>
+    <h2>Return Value</h2>
+    <table class="borderless" summary="Return value help">
+      <tr>
+        <td class="tablehead">Name</td>
+        <td class="tablehead">Type</td>
+        <td class="tablehead">Description</td>
+      </tr>
+      <tr>
+        <td class="paramName">status</td>
+        <td class="paramDataType">ViStatus</td>
+        <td>
+    This is the error code returned by the function call. For error codes and descriptions see &lt;Error Message&gt;.
+        </td>
+      </tr>
+    </table>
+    <h2>References</h2>
+    <p class="body">
+      <a href="ClassData%20Functions.html">Data Functions</a><br/>
+      <a href="Thorlabs%20CCS%20VISA%20Instrument%20Driver.html">Thorlabs CCS VISA Instrument Driver</a><br/>
+      <a href="Alphabetical%20Function%20Index.html">Alphabetical Function Index</a><br/>
+      <a href="Hierarchical%20Function%20Index.html">Hierarchical Function Index</a><br/>
+    </p>
+  </body>
+</html>

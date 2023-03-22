@@ -1,0 +1,93 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+    <link rel="stylesheet" href="htmlhelp.css" type="text/css">
+    <title>tlccs_getAttribute</title>
+  </head>
+  <body>
+    <h1>tlccs_getAttribute</h1>
+    <p class="syntax">
+      ViStatus tlccs_getAttribute (ViSession instrumentHandle, ViAttr attribute,
+                             ViPAttrState value);
+    </p>
+    <h2 class="purpose">Purpose</h2>
+    <p class="body">
+    Queries a specified attribute for the given instrument session.
+    </p>
+    <h2>Parameters</h2>
+    <table class="borderless" summary="Parameter help">
+      <tr>
+        <td valign="top"><em class="label">Input</em></td>
+      </tr>
+      <tr>
+        <td class="tablehead">Name</td>
+        <td class="tablehead">Type</td>
+        <td class="tablehead">Description</td>
+      </tr>
+      <tr>
+        <td class="paramName">instrumentHandle</td>
+        <td class="paramDataType">ViSession</td>
+        <td>
+    This parameter accepts the instrument handle returned by &lt;Initialize&gt; to select the desired instrument driver session.
+        </td>
+      </tr>
+      <tr>
+        <td class="paramName">attribute</td>
+        <td class="paramDataType">ViAttr</td>
+        <td>
+    Specifies the attribute whose value you want to query.
+    <br/>
+    Attributes:
+    <br/>
+    CCS_SERIES_ATTR_USER_DATA
+    <br/>
+    Description:&nbsp;&nbsp;This attribute value is the data used privately by the application for a particular session. This data is not used by the instrument driver for any purposes. It is provided to the application for its own use.
+    <br/>
+    CCS_SERIES_ATTR_CAL_MODE
+    <br/>
+    Description:&nbsp;&nbsp;This attribute value returns either CCS_SERIES_CAL_MODE_USER (0) or CCS_SERIES_CAL_MODE_THORLABS (1). This shows whether the amplitude correction data set by function CCSseries_setAmplitudeData() or read by function CCSseries_getAmplitudeData() is data provided by the user or provided by THORLABS.
+        </td>
+      </tr>
+      <tr>
+        <td valign="top"><em class="label">Output</em></td>
+      </tr>
+      <tr>
+        <td class="tablehead">Name</td>
+        <td class="tablehead">Type</td>
+        <td class="tablehead">Description</td>
+      </tr>
+      <tr>
+        <td class="paramName">value</td>
+        <td class="paramDataType">ViAttrState (passed by reference)</td>
+        <td>
+    The value of the specified attribute.
+        </td>
+      </tr>
+    </table>
+    <h2>Return Value</h2>
+    <table class="borderless" summary="Return value help">
+      <tr>
+        <td class="tablehead">Name</td>
+        <td class="tablehead">Type</td>
+        <td class="tablehead">Description</td>
+      </tr>
+      <tr>
+        <td class="paramName">status</td>
+        <td class="paramDataType">ViStatus</td>
+        <td>
+    This value shows the status code returned by the function call.
+    <br/>
+    For Status Codes see function &lt;Error Message&gt;.
+        </td>
+      </tr>
+    </table>
+    <h2>References</h2>
+    <p class="body">
+      <a href="ClassUtility%20Functions.html">Utility Functions</a><br/>
+      <a href="Thorlabs%20CCS%20VISA%20Instrument%20Driver.html">Thorlabs CCS VISA Instrument Driver</a><br/>
+      <a href="Alphabetical%20Function%20Index.html">Alphabetical Function Index</a><br/>
+      <a href="Hierarchical%20Function%20Index.html">Hierarchical Function Index</a><br/>
+    </p>
+  </body>
+</html>
