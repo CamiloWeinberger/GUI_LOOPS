@@ -1,11 +1,14 @@
 function app = Check_GigeCam(app)
             if app.diffCam ~= 0
                 if app.camNumber == 1
-                    v = videoinput('hamamatsu',1,'MONO16_2048x2048_FastMode');
-                    v.FramesPerTrigger = 1;
+                                       v = videoinput('hamamatsu',1,'MONO16_2048x2048_FastMode');
+                    v.FramesPerTrigger = 10;
                     v.TriggerRepeat = 1;
-%                     triggerconfig(v, 'manual');
+                    triggerconfig(v, 'immediate')
+                    v.TriggerCondition
+                    
                     s = getselectedsource(v);
+                    s.TriggerConnector = 'bnc';
                     s.ExposureTime = 0.2;
                     app.AddCheckBox_2.Enable = 'on';
                 elseif app.camNumber == 2
