@@ -1,4 +1,4 @@
-classdef WaveGen
+classdef WaveGen < handle
     %UNTITLED Summary of this class goes here
     %   Detailed explanation goes here
     %   For more information ask to camilo.weinberger.c@mail.pucv.cl
@@ -8,7 +8,7 @@ classdef WaveGen
         Voltage1 = 0; % Manual V1
         Voltage2 = 0; % Manual V2
         Frequency = 30; % Frequency from V1 and V2
-        Phase = 0; % phase V2
+        Phase = 75; % phase V2
         Status = 0; % 1/2 on/off
         deviceObj;
         tag = 'Wave signal generator USB control';
@@ -39,6 +39,7 @@ classdef WaveGen
             obj.deviceObj = deviceObj;
             
             turn_off(obj);
+            display(obj);
         end
         
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -46,11 +47,10 @@ classdef WaveGen
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         function out = conv_mod(obj,input)
             
-            amp_fact1 = input*.1594+.2642; % editable factor Volt 1
-            amp_fact2 = input*.1185+.1587; % editable factor Volt 2
-            phase_factor = 69;        %¨editable phase delay
+            amp_fact1 = input*.1085+.1587; % editable factor Volt 1
+            amp_fact2 = input*.1694+.2642; % editable factor Volt 2
             
-            out = [amp_fact1, amp_fact2, phase_factor];
+            out = [amp_fact1, amp_fact2];
         end
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -77,8 +77,6 @@ classdef WaveGen
             set(deviceObj.Frequency(1), 'ConcurrentState', 'off');
             set(deviceObj.Frequency(2), 'ConcurrentState', 'off');
             set(deviceObj.Phase(2), 'Adjust', 0/180*pi);
-            display(obj);
-%             display('State = OFF');
         end
 
         function out = turn_on(obj)
@@ -91,8 +89,6 @@ classdef WaveGen
             set(deviceObj.Frequency(2), 'ConcurrentState', 'on');
             set(deviceObj.Output(1), 'State', 'on');
             set(deviceObj.Output(2), 'State', 'on');
-            display(obj);
-%             display('State = ON');
         end
         
         function obj = write(obj)
@@ -112,7 +108,6 @@ classdef WaveGen
                 vals = conv_mod(obj,mod);
                 obj.Voltage1 = vals(1); % Manual V1
                 obj.Voltage2 = vals(2); % Manual V2
-                obj.Phase = vals(3); % Frequency from V1 and V2
                 turn_on(obj);
                 obj = write(obj);
             elseif mod == 0
