@@ -13,16 +13,21 @@ classdef WaveGen < handle
         deviceObj;
         tag = 'Wave signal generator USB control';
 
+
     end
 
     methods
         function obj = WaveGen
             %UNTITLED Construct an instance of this class
             %   Detailed explanation goes here
-            interfaceObj = instrfind('Type', 'visa-usb', 'RsrcName', 'USB0::0x0699::0x034A::C014398::0::INSTR', 'Tag', '');
-
+            Dev = visadevlist;
+            prompt = 'Witch WaveGen (number): ';
+            display(visadevlist)
+            visa_f = Dev.ResourceName(1);
+            interfaceObj = instrfind('Type', 'visa-usb', 'RsrcName', visa_f, 'Tag', '');
             if isempty(interfaceObj)
-                interfaceObj = visa('NI', 'USB0::0x0699::0x034A::C014398::0::INSTR');
+                interfaceObj = visa('NI', [visa_f]);
+                
             else
                 fclose(interfaceObj);
                 interfaceObj = interfaceObj(1);
